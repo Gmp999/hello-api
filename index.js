@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+const usersRouter = require('./routes/users');
 
-app.set('view engine', 'ejs');
+// Middleware
+app.use(express.urlencoded({ extended: true })); // Parses form data acess information from forms.
+app.use(express.static('public')); // Serves form.html from public/
 
-app.get('/hello', (req, res) => {
-  res.render('index1',{text : "World" });  // Will render views/index.ejs
-});
+// Routes
+app.use('/users', usersRouter);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
